@@ -40,9 +40,11 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 20px 6vw;
     border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  .cs-nav-brand { display: flex; align-items: center; gap: 12px; }
-  .cs-nav-brand img { height: 54px; width: auto; }
+  .cs-nav-brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .cs-nav-brand img { height: 54px; width: auto; flex-shrink: 0; }
   .cs-wordmark {
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
@@ -65,6 +67,14 @@
     font-size: 22px;
     color: var(--orange-deep);
   }
+  @media (max-width: 480px) {
+    .cs-nav { padding: 16px 5vw; }
+    .cs-nav-brand img { height: 42px; }
+    .cs-wordmark { font-size: 16px; }
+    .cs-wordmark small { font-size: 9.5px; }
+    .cs-nav-tag { font-size: 17px; }
+  }
+
 
   /* ---------- HERO ---------- */
   .cs-hero {
@@ -222,8 +232,9 @@
   .cs-human-note span:last-child { text-align: justify; }
 
   /* ---------- A CONTA ---------- */
+  .cs-conta-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .cs-conta-table {
-    width: 100%; border-collapse: collapse; background: #fff;
+    width: 100%; min-width: 560px; border-collapse: collapse; background: #fff;
     border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden;
   }
   .cs-conta-table th {
@@ -234,6 +245,10 @@
   .cs-conta-table td { padding: 13px 16px; font-size: 13.5px; border-bottom: 1px solid var(--line); color: var(--sub); }
   .cs-conta-table td.hl { background: #FFF7EA; color: var(--ink); font-weight: 700; }
   .cs-conta-table tr:last-child td { border-bottom: none; font-weight: 700; }
+  @media (max-width: 600px) {
+    .cs-conta-table { min-width: 480px; }
+    .cs-conta-table th, .cs-conta-table td { padding: 10px 12px; font-size: 12.5px; }
+  }
   .cs-conta-foot { font-size: 12px; color: #8A8A82; margin-top: 10px; }
 
   /* ---------- COMO FUNCIONA ---------- */
@@ -313,6 +328,9 @@
   .cs-footer-contact { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--sub); }
   .cs-footer-contact span b { color: var(--ink); }
   .cs-footer-tag { font-family: 'Caveat', cursive; font-weight: 700; font-size: 20px; color: var(--orange-deep); margin-top: 8px; }
+  @media (max-width: 480px) {
+    .cs-footer-contact { flex-direction: column; gap: 8px; }
+  }
 
   /* ---------- FOUNDER ---------- */
   .cs-founder {
@@ -320,7 +338,7 @@
     padding: 0 6vw 50px;
   }
   .cs-founder-photo {
-    width: 260px; height: 320px; border-radius: 16px;
+    width: 260px; max-width: 68vw; height: 320px; max-height: 78vw; border-radius: 16px;
     object-fit: cover; object-position: top center;
     box-shadow: 0 16px 34px rgba(0,0,0,0.16);
     border: 1px solid var(--line);
@@ -330,6 +348,16 @@
     margin-top: 10px; opacity: 0.8;
   }
   .cs-founder-caption b { color: var(--sub); font-weight: 500; font-style: normal; }
+  /* ---------- MOBILE REFINEMENTS ---------- */
+  @media (max-width: 480px) {
+    .cs-section { padding: 40px 5vw; }
+    .cs-hero { padding: 28px 5vw 24px; }
+    .cs-offer { padding: 26px 18px; margin: 0 4vw 40px; border-radius: 16px; }
+    .cs-form-card { padding: 20px 18px 16px; }
+    .cs-founder { padding: 0 5vw 40px; }
+    .cs-price-row { gap: 10px; }
+    .cs-send-btn { min-width: 130px; font-size: 12.5px; }
+  }
 </style>
 
 <div class="cs-root">
@@ -392,6 +420,7 @@
       <p class="cs-section-desc">Uma comparação simples de custo — sem contar o tempo que você gastaria selecionando, treinando e supervisionando sozinho(a).</p>
     </div>
 
+    <div class="cs-conta-scroll">
     <table class="cs-conta-table">
       <tr>
         <th>Item</th>
@@ -429,6 +458,7 @@
         <td>≈ R$ 2.800 a R$ 3.200</td>
       </tr>
     </table>
+    </div>
     <p class="cs-conta-foot">* Valor válido para contratação como MEI. Estimativa ilustrativa de encargos trabalhistas para fins de comparação — os valores exatos variam conforme regime tributário e devem ser confirmados com um contador.</p>
   </div>
 
