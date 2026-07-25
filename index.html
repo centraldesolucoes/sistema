@@ -67,6 +67,9 @@
     font-size: 22px;
     color: var(--orange-deep);
   }
+  @media (max-width: 680px) {
+    .cs-nav { position: sticky; top: 0; z-index: 25; background: var(--bg); }
+  }
   @media (max-width: 480px) {
     .cs-nav { padding: 16px 5vw; }
     .cs-nav-brand img { height: 42px; }
@@ -208,7 +211,27 @@
 
   .cs-services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   @media (max-width: 980px) { .cs-services-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .cs-services-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 680px) {
+    .cs-services-grid {
+      display: flex;
+      grid-template-columns: unset;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 12px;
+      margin: 0 -5vw;
+      padding: 4px 5vw 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cs-services-grid .cs-card {
+      flex: 0 0 76vw;
+      scroll-snap-align: start;
+    }
+    .cs-swipe-hint { display: block; }
+  }
+  .cs-swipe-hint {
+    display: none;
+    font-size: 11.5px; color: var(--sub); margin: -6px 0 12px; font-weight: 600;
+  }
 
   .cs-card {
     background: #fff;
@@ -246,8 +269,28 @@
   .cs-conta-table td.hl { background: #FFF7EA; color: var(--ink); font-weight: 700; }
   .cs-conta-table tr:last-child td { border-bottom: none; font-weight: 700; }
   @media (max-width: 600px) {
-    .cs-conta-table { min-width: 480px; }
-    .cs-conta-table th, .cs-conta-table td { padding: 10px 12px; font-size: 12.5px; }
+    .cs-conta-scroll { overflow-x: visible; }
+    .cs-conta-table { min-width: 0; display: block; }
+    .cs-conta-table thead { display: none; }
+    .cs-conta-table tbody { display: block; }
+    .cs-conta-table tr {
+      display: block;
+      border-bottom: 8px solid var(--bg);
+    }
+    .cs-conta-table tr:last-child { border-bottom: none; }
+    .cs-conta-table td {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      padding: 10px 14px; font-size: 12.5px; text-align: right;
+    }
+    .cs-conta-table td:first-child {
+      display: block; text-align: left;
+      font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 12.5px;
+      color: #fff; background: var(--ink); padding: 9px 14px; text-transform: uppercase; letter-spacing: 0.02em;
+    }
+    .cs-conta-table td:nth-child(2)::before { content: "Central de Soluções"; color: var(--sub); font-weight: 500; text-transform: none; letter-spacing: 0; }
+    .cs-conta-table td:nth-child(3)::before { content: "Funcionário CLT"; color: var(--sub); font-weight: 500; text-transform: none; letter-spacing: 0; }
+    .cs-conta-table tr:last-child td:nth-child(2)::before,
+    .cs-conta-table tr:last-child td:nth-child(3)::before { font-weight: 700; }
   }
   .cs-conta-foot { font-size: 12px; color: #8A8A82; margin-top: 10px; }
 
@@ -348,6 +391,26 @@
     margin-top: 10px; opacity: 0.8;
   }
   .cs-founder-caption b { color: var(--sub); font-weight: 500; font-style: normal; }
+  /* ---------- MOBILE STICKY CTA BAR ---------- */
+  .cs-mobile-cta { display: none; }
+  @media (max-width: 680px) {
+    .cs-root { padding-bottom: 66px; }
+    .cs-mobile-cta {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      background: #fff; border-top: 1.5px solid var(--line);
+      padding: 10px 5vw calc(10px + env(safe-area-inset-bottom, 0px));
+      box-shadow: 0 -8px 22px rgba(0,0,0,0.10);
+    }
+    .cs-mobile-cta-price { font-size: 11px; color: var(--sub); font-weight: 600; line-height: 1.3; }
+    .cs-mobile-cta-price b { display: block; color: var(--ink); font-size: 13px; font-family: 'Poppins', sans-serif; }
+    .cs-mobile-cta-btn {
+      background: var(--orange); color: #fff; border: none; border-radius: 10px;
+      padding: 12px 16px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px;
+      white-space: nowrap; cursor: pointer;
+    }
+  }
+
   /* ---------- MOBILE REFINEMENTS ---------- */
   @media (max-width: 480px) {
     .cs-section { padding: 40px 5vw; }
@@ -405,6 +468,7 @@
       <p class="cs-section-desc">Nada de contratar um funcionário pra cada função. Uma assistente dedicada, treinada na metodologia da Central, cuida de tudo isso — direto no sistema de gestão.</p>
     </div>
 
+    <div class="cs-swipe-hint">← deslize pra ver todas as áreas →</div>
     <div class="cs-services-grid" id="cs-services"></div>
 
     <div class="cs-human-note">
@@ -544,6 +608,11 @@
       </div>
     </div>
     <div class="cs-footer-tag">Tudo resolvido, do seu jeito!</div>
+  </div>
+
+  <div class="cs-mobile-cta">
+    <div class="cs-mobile-cta-price">a partir de<b>menos de 1 salário/mês*</b></div>
+    <button class="cs-mobile-cta-btn" onclick="document.getElementById('cs-form-anchor').scrollIntoView({behavior:'smooth'})">Entrar na lista →</button>
   </div>
 </div>
 
